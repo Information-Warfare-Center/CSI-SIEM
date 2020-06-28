@@ -1,0 +1,3 @@
+NOTICE, [orig_h=10.0.2.15, orig_p=53288/tcp, resp_h=74.84.128.158, resp_p=3333/tcp], Bitcoin::Miner, Cryptominer at 10.0.2.15, using Stratum protocol
+NOTICE, [orig_h=10.0.2.15, orig_p=53288/tcp, resp_h=74.84.128.158, resp_p=3333/tcp], Bitcoin::Mining_Pool_Server, Cryptomining pool server at 74.84.128.158:3333/tcp, using Stratum protocol
+NOTICE, [orig_h=10.0.2.15, orig_p=50520/tcp, resp_h=113.21.199.11, resp_p=3333/tcp], Bitcoin::Mining_Pool_Server, Cryptomining pool server at 113.21.199.11:3333/tcp, using Stratum protocol

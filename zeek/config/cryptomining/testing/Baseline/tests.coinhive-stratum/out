@@ -1,0 +1,2 @@
+NOTICE, [orig_h=10.0.2.15, orig_p=46080/tcp, resp_h=192.110.160.114, resp_p=3333/tcp], Bitcoin::Miner, Cryptominer at 10.0.2.15, using MinerGate protocol
+NOTICE, [orig_h=10.0.2.15, orig_p=46080/tcp, resp_h=192.110.160.114, resp_p=3333/tcp], Bitcoin::Mining_Pool_Server, Cryptomining pool server at 192.110.160.114:3333/tcp, using MinerGate protocol

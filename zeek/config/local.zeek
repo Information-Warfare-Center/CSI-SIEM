@@ -59,3 +59,22 @@ redef SOCKS::default_capture_password = T;
 redef SNIFFPASS::log_password_plaintext = T;
 redef SNIFFPASS::notice_log_enable = F;
 
+#CSI Custom Scripts added
+@load producer-consumer-ratio
+@load cryptomining
+@load dnstunnel.zeek
+@load rdp
+@load smtp
+@load dns-zone-trans.zeek
+@load creditcardcaptures
+@load ftp-bruteforce.zeek
+@load http-stalling.zeek
+@load http-attack.zeek
+@load http-pass.zeek
+@load http-basic-auth.zeek
+@load tor.zeek
+@load udpscan.zeek
+#@load dir-mod.zeek
+@load ssh-attack.zeek
+
+

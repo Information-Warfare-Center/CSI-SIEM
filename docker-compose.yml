@@ -345,6 +345,22 @@ services:
       - ./zeek-logs/upload:/zeek/upload
       - ./zeek-logs/extract_files:/zeek/extract_files
       - ./zeek/config/local.zeek:/opt/zeek/share/zeek/site/local.zeek:ro
+      - ./zeek/config/cryptomining:/opt/zeek/share/zeek/site/cryptomining:ro
+      - ./zeek/config/producer-consumer-ratio:/opt/zeek/share/zeek/site/producer-consumer-ratio:ro
+      - ./zeek/config/dnstunnel.zeek:/opt/zeek/share/zeek/site/dnstunnel.zeek:ro
+      - ./zeek/config/rdp:/opt/zeek/share/zeek/site/rdp:ro
+      - ./zeek/config/smtp:/opt/zeek/share/zeek/site/smtp:ro
+      - ./zeek/config/dns-zone-trans.zeek:/opt/zeek/share/zeek/site/dns-zone-trans.zeek:ro
+      - ./zeek/config/creditcardcaptures:/opt/zeek/share/zeek/site/creditcardcaptures:ro
+      - ./zeek/config/ftp-bruteforce.zeek:/opt/zeek/share/zeek/site/ftp-bruteforce.zeek:ro
+      - ./zeek/config/http-stalling.zeek:/opt/zeek/share/zeek/site/http-stalling.zeek:ro
+      - ./zeek/config/http-attack.zeek:/opt/zeek/share/zeek/site/http-attack.zeek:ro
+      - ./zeek/config/http-pass.zeek:/opt/zeek/share/zeek/site/http-pass.zeek:ro
+      - ./zeek/config/http-basic-auth.zeek:/opt/zeek/share/zeek/site/http-basic-auth.zeek:ro
+      - ./zeek/config/tor.zeek:/opt/zeek/share/zeek/site/tor.zeek:ro
+      - ./zeek/config/udpscan.zeek:/opt/zeek/share/zeek/site/udpscan.zeek:ro
+#      - ./zeek/config/dir-mod.zeek:/opt/zeek/share/zeek/site/dir-mod.zeek:ro
+      - ./zeek/config/ssh-attack.zeek:/opt/zeek/share/zeek/site/ssh-attack.zeek:ro
     healthcheck:
       test: ["CMD", "supervisorctl", "status", "pcap-zeek"]
       interval: 30s
