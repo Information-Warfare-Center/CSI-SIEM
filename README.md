@@ -98,7 +98,7 @@ For a `TL;DR` example of downloading, configuring, and running Malcolm on a Linu
 
 #### Source code
 
-The files required to build and run Malcolm are available on the [Idaho National Lab's GitHub page](https://github.com/idaholab/Malcolm/tree/master). Malcolm's source code is released under the terms of a permissive open source software license (see see `License.txt` for the terms of its release).
+The files required to build and run Malcolm are available on the [Information Warfare Center Git Hub](https://github.com/Information-Warfare-Center/CSI-SIEM/). Malcolm's source code is released under the terms of a permissive open source software license (see see `License.txt` for the terms of its release).
 
 #### Building Malcolm from scratch
 
@@ -218,7 +218,7 @@ Malcolm leverages the following excellent open source tools, among others.
     * SoftwareConsultingEmporium's [Bro::LDAP](https://github.com/SoftwareConsultingEmporium/ldap-analyzer) analyzer
     * Johanna Amann's [CVE-2020-0601](https://github.com/0xxon/cve-2020-0601) ECC certificate validation plugin and [CVE-2020-13777](https://github.com/0xxon/cve-2020-13777) GnuTLS unencrypted session ticket detection plugin
 * [GeoLite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) - Malcolm includes GeoLite2 data created by [MaxMind](https://www.maxmind.com)
-
+    * CSI-Linux's Scripts [CSI-Scripts](https://github.com/RichardMedlin/Zeek-Bro) Scripts to detect Tor traffic, DNS Tunneling, crypto mining, data exfiltration, rdp, http-attacks, http-pass, http-stalling, ssh-attacks, dns-zone-transfers, basic-authentication-notification, and creditcardcaptures.
 ## <a name="Protocols"></a>Supported Protocols
 
 Malcolm uses [Zeek](https://docs.zeek.org/en/stable/script-reference/proto-analyzers.html) and [Moloch](https://github.com/aol/moloch/tree/master/capture/parsers) to analyze network traffic. These tools provide varying degrees of visibility into traffic transmitted over the following network protocols:
