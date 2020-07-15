@@ -2,7 +2,7 @@
 
 ![](./docs/images/logo/Malcolm_banner.png)
 
-[Malcolm](https://github.com/idaholab/Malcolm) is a powerful network traffic analysis tool suite designed with the following goals in mind:
+[CSI-SIEM using Malcolm](https://github.com/Information-Warfare-Center/CSI-SIEM/) is a powerful network traffic analysis tool suite designed with the following goals in mind:
 
 * **Easy to use** – Malcolm accepts network traffic data in the form of full packet capture (PCAP) files and Zeek (formerly Bro) logs. These artifacts can be uploaded via a simple browser-based interface or captured live and forwarded to Malcolm using lightweight forwarders. In either case, the data is automatically normalized, enriched, and correlated for analysis.
 * **Powerful traffic analysis** – Visibility into network communications is provided through two intuitive interfaces: Kibana, a flexible data visualization plugin with dozens of prebuilt dashboards providing an at-a-glance overview of network protocols; and Moloch, a powerful tool for finding and identifying the network sessions comprising suspected security incidents.
@@ -826,14 +826,14 @@ Note that currently Microsoft Windows and Apple macOS platforms run Docker insid
 
 ### <a name="Hedgehog"></a>Using a network sensor appliance
 
-A remote network sensor appliance can be used to monitor network traffic, capture PCAP files, and forward Zeek logs, Moloch sessions, or other information to Malcolm. [Hedgehog Linux](https://github.com/idaholab/Malcolm/tree/master/sensor-iso/) is a Debian-based operating system built to
+A remote network sensor appliance can be used to monitor network traffic, capture PCAP files, and forward Zeek logs, Moloch sessions, or other information to Malcolm. [Hedgehog Linux](https://github.com/Information-Warfare-Center/CSI-SIEM/sensor-iso/) is a Debian-based operating system built to
 
 * monitor network interfaces
 * capture packets to PCAP files
 * detect file transfers in network traffic and extract and scan those files for threats
 * generate and forward Zeek logs, Moloch sessions, and other information to [Malcolm](https://github.com/idaholab/malcolm)
 
-Please see the [Hedgehog Linux README](https://github.com/idaholab/Malcolm/blob/master/sensor-iso/README.md) for more information.
+Please see the [Hedgehog Linux README](https://github.com/Information-Warfare-Center/CSI-SIEM/sensor-iso/README.md) for more information.
 
 ### <a name="ZeekForward"></a>Manually forwarding Zeek logs from an external source
 
@@ -1381,7 +1381,7 @@ Building the ISO may take 30 minutes or more depending on your system. As the bu
 
 ```
 …
-Finished, created "/malcolm-build/malcolm-iso/malcolm-2.1.0.iso"
+Finished, created "/CSI-SIEM/malcolm-iso/malcolm-2.1.0.iso"
 …
 ```
 
@@ -1420,7 +1420,7 @@ Following these prompts, the installer will reboot and the Malcolm base operatin
 
 When the system boots for the first time, the Malcolm Docker images will load if the installer was built with pre-packaged installation files as described above. Wait for this operation to continue (the progress dialog will disappear when they have finished loading) before continuing the setup.
 
-Open a terminal (click the red terminal 🗔 icon next to the Debian swirl logo 🍥 menu button in the menu bar). At this point, setup is similar to the steps described in the [Quick start](#QuickStart) section. Navigate to the Malcolm directory (`cd ~/Malcolm`) and run [`auth_setup`](#AuthSetup) to configure authentication. If the ISO didn't have pre-packaged Malcolm images, or if you'd like to retrieve the latest updates, run `docker-compose pull`. Finalize your configuration by running `python3 scripts/install.py --configure` and follow the prompts as illustrated in the [installation example](#InstallationExample).
+Open a terminal (click the red terminal 🗔 icon next to the Debian swirl logo 🍥 menu button in the menu bar). At this point, setup is similar to the steps described in the [Quick start](#QuickStart) section. Navigate to the Malcolm directory (`cd ~/CSI-SIEM`) and run [`auth_setup`](#AuthSetup) to configure authentication. If the ISO didn't have pre-packaged Malcolm images, or if you'd like to retrieve the latest updates, run `docker-compose pull`. Finalize your configuration by running `python3 scripts/install.py --configure` and follow the prompts as illustrated in the [installation example](#InstallationExample).
 
 Once Malcolm is configured, you can [start Malcolm](#Starting) via the command line or by clicking the circular yellow Malcolm icon in the menu bar.
 
@@ -1568,20 +1568,18 @@ After Malcolm ingests your data (or, more specifically, after it has ingested a 
 
 ## <a name="InstallationExample"></a>Installation example using Ubuntu 18.04 LTS
 
-Here's a step-by-step example of getting [Malcolm from GitHub](https://github.com/idaholab/Malcolm/tree/master), configuring your system and your Malcolm instance, and running it on a system running Ubuntu Linux. Your mileage may vary depending on your individual system configuration, but this should be a good starting point.
+Here's a step-by-step example of getting [CSI-SIEM using Malcolm from GitHub](https://github.com/Information-Warfare-Center/CSI-SIEM/), configuring your system and your Malcolm instance, and running it on a system running Ubuntu Linux. Your mileage may vary depending on your individual system configuration, but this should be a good starting point.
 
-You can use `git` to clone Malcolm into a local working copy, or you can download and extract the artifacts from the [latest release](https://github.com/idaholab/Malcolm/releases).
-
-To install Malcolm from the latest Malcolm release, browse to the [Malcolm releases page on GitHub](https://github.com/idaholab/Malcolm/releases) and download at a minimum `install.py` and the `malcolm_YYYYMMDD_HHNNSS_xxxxxxx.tar.gz` file, then navigate to your downloads directory:
+To install Malcolm from the latest Malcolm release, browse to the [CSI Linux Malcolm releases page on GitHub](https://csilinux.com) and download at a minimum `install.py` and the `CSI-SIEM.tar.gz` file, then navigate to your downloads directory:
 ```
 user@host:~$ cd Downloads/
 user@host:~/Downloads$ ls
-install.py  malcolm_20190611_095410_ce2d8de.tar.gz
+install.py  CSI-SIEM.tar.gz
 ```
 
 If you are obtaining Malcolm using `git` instead, run the following command to clone Malcolm into a local working copy:
 ```
-user@host:~$ git clone https://github.com/idaholab/Malcolm
+user@host:~$ git clone https://github.com/Information-Warfare-Center/CSI-SIEM/
 Cloning into 'Malcolm'...
 remote: Enumerating objects: 443, done.
 remote: Counting objects: 100% (443/443), done.
@@ -1590,7 +1588,7 @@ remote: Total 443 (delta 81), reused 441 (delta 79), pack-reused 0
 Receiving objects: 100% (443/443), 6.87 MiB | 18.86 MiB/s, done.
 Resolving deltas: 100% (81/81), done.
 
-user@host:~$ cd Malcolm/
+user@host:~$ cd CSI-SIEM/
 ```
 
 Next, run the `install.py` script to configure your system. Replace `user` in this example with your local account username, and follow the prompts. Most questions have an acceptable default you can accept by pressing the `Enter` key. Depending on whether you are installing Malcolm from the release tarball or inside of a git working copy, the questions below will be slightly different, but for the most part are the same.
@@ -1656,15 +1654,15 @@ vm.dirty_ratio= appears to be missing from /etc/sysctl.conf, append it? (Y/n): y
 
 At this point, **if you are installing from the a release tarball** you will be asked if you would like to extract the contents of the tarball and to specify the installation directory:
 ```
-Extract Malcolm runtime files from /home/user/Downloads/malcolm_20190611_095410_ce2d8de.tar.gz (Y/n): y
+Extract Malcolm runtime files from /home/user/Downloads/CSI-SIEM.tar.gz (Y/n): y
 
-Enter installation path for Malcolm [/home/user/Downloads/malcolm]: /home/user/Malcolm
-Malcolm runtime files extracted to /home/user/Malcolm
+Enter installation path for Malcolm [/home/user/Downloads/CSI-SIEM]: /home/user/CSI-SIEM
+Malcolm runtime files extracted to /home/user/CSI-SIEM
 ```
 
 Alternatively, **if you are configuring Malcolm from within a git working copy**, `install.py` will now exit. Run `install.py` again like you did at the beginning of the example, only remove the `sudo` and add `--configure` to run `install.py` in "configuration only" mode. 
 ```
-user@host:~/Malcolm$ python3 scripts/install.py --configure
+user@host:~/CSI-SIEM$ python3 scripts/install.py --configure
 ```
 
 Now that any necessary system configuration changes have been made, the local Malcolm instance will be configured:
@@ -1729,16 +1727,16 @@ Capture packets using netsniff-ng? (Y/n): y
 
 Capture packets using tcpdump? (y/N): n
 
-Malcolm has been installed to /home/user/Malcolm. See README.md for more information.
+Malcolm has been installed to /home/user/CSI-SIEM. See README.md for more information.
 Scripts for starting and stopping Malcolm and changing authentication-related settings can be found
-in /home/user/Malcolm/scripts.
+in /home/user/CSI-SIEM/scripts.
 ```
 
 At this point you should **reboot your computer** so that the new system settings can be applied. After rebooting, log back in and return to the directory to which Malcolm was installed (or to which the git working copy was cloned).
 
 Now we need to [set up authentication](#AuthSetup) and generate some unique self-signed SSL certificates. You can replace `analyst` in this example with whatever username you wish to use to log in to the Malcolm web interface.
 ```
-user@host:~/Malcolm$ ./scripts/auth_setup
+user@host:~/CSI-SIEM$ ./scripts/auth_setup
 Username: analyst
 analyst password:
 analyst password (again):
@@ -1752,7 +1750,7 @@ Store username/password for forwarding Logstash events to a secondary, external 
 
 For now, rather than [build Malcolm from scratch](#Build), we'll pull images from [Docker Hub](https://hub.docker.com/u/malcolmnetsec):
 ```
-user@host:~/Malcolm$ docker-compose pull
+user@host:~/CSI-SIEM$ docker-compose pull
 Pulling curator       ... done
 Pulling elastalert    ... done
 Pulling elasticsearch ... done
@@ -1770,7 +1768,7 @@ Pulling pcap-monitor  ... done
 Pulling upload        ... done
 Pulling zeek          ... done
 
-user@host:~/Malcolm$ docker images
+user@host:~/CSI-SIEM$ docker images
 REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
 malcolmnetsec/curator                               2.1.0               xxxxxxxxxxxx        20 hours ago        246MB
 malcolmnetsec/elastalert                            2.1.0               xxxxxxxxxxxx        20 hours ago        408MB
@@ -1792,7 +1790,7 @@ docker.elastic.co/elasticsearch/elasticsearch-oss   7.6.2               xxxxxxxx
 
 Finally, we can start Malcolm. When Malcolm starts it will stream informational and debug messages to the console. If you wish, you can safely close the console or use `Ctrl+C` to stop these messages; Malcolm will continue running in the background.
 ```
-user@host:~/Malcolm$ ./scripts/start
+user@host:~/CSI-SIEM$ ./scripts/start
 Creating network "malcolm_default" with the default driver
 Creating malcolm_curator_1       ... done
 Creating malcolm_elastalert_1    ... done
@@ -1838,59 +1836,7 @@ You can now open a web browser and navigate to one of the [Malcolm user interfac
 
 ## <a name="UpgradePlan"></a>Upgrading Malcolm
 
-At this time there is not an "official" upgrade procedure to get from one version of Malcolm to the next, as it may vary from platform to platform. However, the process is fairly simple can be done by following these steps:
-
-### Update the underlying system
-
-You may wish to get the official updates for the underlying system's software packages before you proceed. Consult the documentation of your operating system for how to do this.
-
-### Scenario 1: Malcolm is a GitHub clone
-
-If you checked out a working copy of the Malcolm repository from GitHub with a `git clone` command, here are the basic steps to performing an upgrade:
-
-1. stop Malcolm
-    * `./scripts/stop`
-2. stash changes to `docker-compose.yml` and other files
-    * `git stash save "pre-upgrade Malcolm configuration changes"`
-3. pull changes from GitHub repository
-    * `git pull --rebase`
-4. pull new Docker images (this will take a while)
-    * `docker-compose pull`
-5. apply saved configuration change stashed earlier
-    * `git stash pop`
-6. if you see `Merge conflict` messages, resolve the [conflicts](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts) with your favorite text editor
-7. you may wish to re-run `install.py --configure` as described in [System configuration and tuning](#ConfigAndTuning) in case there are any new `docker-compose.yml` parameters for Malcolm that need to be set up
-8. start Malcolm
-    * `./scripts/start`
-9. you may be prompted to [configure authentication](#AuthSetup) if there are new authentication-related files that need to be generated
-    * you probably do not need to re-generate self-signed certificates
-
-### Scenario 2: Malcolm was installed from a packaged tarball
-
-If you installed Malcolm from [pre-packaged installation files](https://github.com/idaholab/malcolm#Packager), here are the basic steps to perform an upgrade:
-
-1. stop Malcolm
-    * `./scripts/stop`
-2. uncompress the new pre-packaged installation files (using `malcolm_YYYYMMDD_HHNNSS_xxxxxxx.tar.gz` as an example, the file and/or directory names will be different depending on the release)
-    * `tar xf malcolm_YYYYMMDD_HHNNSS_xxxxxxx.tar.gz`
-3. backup current Malcolm scripts, configuration files and certificates
-    * `mkdir -p ./upgrade_backup_$(date +%Y-%m-%d)`
-    * `cp -r elastalert/ filebeat/ htadmin/ logstash/ nginx/ auth.env cidr-map.txt docker-compose.yml host-map.txt net-map.json ./scripts ./README.md ./upgrade_backup_$(date +%Y-%m-%d)/`
-3. replace scripts and local documentation in your existing installation with the new ones
-    * `rm -rf ./scripts ./README.md`
-    * `cp -r ./malcolm_YYYYMMDD_HHNNSS_xxxxxxx/scripts ./malcolm_YYYYMMDD_HHNNSS_xxxxxxx/README.md ./`
-4. replace (overwrite) `docker-compose.yml` file with new version
-    * `cp ./malcolm_YYYYMMDD_HHNNSS_xxxxxxx/docker-compose.yml ./docker-compose.yml`
-5. re-run `python3 ./scripts/install.py --configure` as described in [System configuration and tuning](#ConfigAndTuning)
-6. using a file comparison tool (e.g., `diff`, `meld`, `Beyond Compare`, etc.), compare `docker-compose.yml` and the `docker-compare.yml` file you backed up in step 3, and manually migrate over any customizations you wish to preserve from that file (e.g., `PCAP_FILTER`, `MAXMIND_GEOIP_DB_LICENSE_KEY`, `MANAGE_PCAP_FILES`; [anything else](#DockerComposeYml) you may have edited by hand in `docker-compose.yml` that's not prompted for in `install.py --configure`)
-7. pull the new docker images (this will take a while)
-    * `docker-compose pull` to pull them from Docker Hub or `docker-compose load -i malcolm_YYYYMMDD_HHNNSS_xxxxxxx_images.tar.gz` if you have an offline tarball of the Malcolm docker images
-8. start Malcolm
-    * `./scripts/start`
-9. you may be prompted to [configure authentication](#AuthSetup) if there are new authentication-related files that need to be generated
-    * you probably do not need to re-generate self-signed certificates
-
-### Post-upgrade
+At this time there is not an "official" upgrade procedure for the CSI-SIEM using Malcolm.  Updates will be added for each major update of the CSI-Linux OS, and will be maintained from this site.  
 
 #### Monitoring Malcolm
 
@@ -1910,9 +1856,13 @@ Once the upgraded instance Malcolm has started up, you'll probably want to impor
 
 See [`License.txt`](./License.txt) for the terms of its release.
 
-### Contact information of author(s):
+### Contact information of author(s) for Malcolm:
 
 [Seth Grover](mailto:malcolm.netsec@gmail.com?subject=Malcolm)
+
+### Contact information of author(s) of CSI-Linux can be found at:
+
+[CSI-Linux's Website] (https://csilinux.com)
 
 ## Other Software
 Idaho National Laboratory is a cutting edge research facility which is constantly producing high quality research and software. Feel free to take a look at our other software and scientific offerings at:
@@ -1924,3 +1874,5 @@ Idaho National Laboratory is a cutting edge research facility which is constantl
 [Raw Experiment Open Source Software](https://github.com/IdahoLabResearch)
 
 [Unsupported Open Source Software](https://github.com/IdahoLabCuttingBoard)
+
+[CSI-Linux](https://csi-linux.com)
