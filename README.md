@@ -1593,7 +1593,7 @@ user@host:~$ cd CSI-SIEM/
 ```diff
 -PLEASE READ THE NOTE BELOW ABOUT FILE PERMISSION!!
 ```
-***NOTE:  You must give ownership of the CSI-SIEM folder to your non-sudo account — If you're using CSI-Linux the csi user account must own the CSI-SIEM folder in order for the SIEM to install correctly.  You cannot install Malcolm using root, or the permissions will not work correctly.  The initial install script will use sudo in the next step, but the --configure step after that will only work using a non-privileged user.***
+***NOTE:  You must give ownership of the CSI-SIEM folder to your non-sudo account — If you're using CSI-Linux the csi user account must own the CSI-SIEM folder in order for the SIEM to install correctly.  You cannot install Malcolm using root, or the permissions will not work correctly.  The initial install script will use sudo in the next step, but the --configure step after that will only work using a non-privileged user that is allowed to write to the folder.  Use the chmod command to give your user permission to read, and write to the CSI-SIEM folder***
 
 Next, run the `install.py` script to configure your system. Replace `user` in this example with your local account username, and follow the prompts. Most questions have an acceptable default you can accept by pressing the `Enter` key. Depending on whether you are installing Malcolm from the release tarball or inside of a git working copy, the questions below will be slightly different, but for the most part are the same.
 ```
