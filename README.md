@@ -1570,13 +1570,13 @@ After Malcolm ingests your data (or, more specifically, after it has ingested a 
 
 Here's a step-by-step example of getting [CSI-SIEM using Malcolm from GitHub](https://github.com/Information-Warfare-Center/CSI-SIEM/), configuring your system and your Malcolm instance, and running it on a system running Ubuntu Linux. Your mileage may vary depending on your individual system configuration, but this should be a good starting point.
 
-To install Malcolm from the latest Malcolm release, browse to the [CSI Linux Malcolm releases page on GitHub](https://csilinux.com) and download at a minimum `install.py` and the `CSI-SIEM.tar.gz` file, then navigate to your downloads directory:
+To install Download CSI-SIEM using Malcolm browse to the [CSI Linux Malcolm releases page on GitHub](https://csilinux.com) and download the `CSI-SIEM.tar.gz` file, then navigate to your downloads directory:
 ```
 user@host:~$ cd Downloads/
 user@host:~/Downloads$ ls
-install.py  CSI-SIEM.tar.gz
+tar -xzf  CSI-SIEM.tar.gz
 ```
-
+If you are using the tar file skip the next git clone step, and continue.
 If you are obtaining Malcolm using `git` instead, run the following command to clone Malcolm into a local working copy:
 ```
 user@host:~$ git clone https://github.com/Information-Warfare-Center/CSI-SIEM/
@@ -1593,7 +1593,7 @@ user@host:~$ cd CSI-SIEM/
 
 Next, run the `install.py` script to configure your system. Replace `user` in this example with your local account username, and follow the prompts. Most questions have an acceptable default you can accept by pressing the `Enter` key. Depending on whether you are installing Malcolm from the release tarball or inside of a git working copy, the questions below will be slightly different, but for the most part are the same.
 ```
-user@host:~/Downloads$ sudo python3 install.py
+user@host:~/Downloads$ sudo python3 scripts/install.py
 Installing required packages: ['apache2-utils', 'make', 'openssl']
 
 "docker info" failed, attempt to install Docker? (Y/n): y
@@ -1651,16 +1651,7 @@ vm.dirty_ratio= appears to be missing from /etc/sysctl.conf, append it? (Y/n): y
 /etc/security/limits.d/limits.conf increases the allowed maximums for file handles and memlocked segments
 /etc/security/limits.d/limits.conf does not exist, create it? (Y/n): y
 ```
-
-At this point, **if you are installing from the a release tarball** you will be asked if you would like to extract the contents of the tarball and to specify the installation directory:
-```
-Extract Malcolm runtime files from /home/user/Downloads/CSI-SIEM.tar.gz (Y/n): y
-
-Enter installation path for Malcolm [/home/user/Downloads/CSI-SIEM]: /home/user/CSI-SIEM
-Malcolm runtime files extracted to /home/user/CSI-SIEM
-```
-
-Alternatively, **if you are configuring Malcolm from within a git working copy**, `install.py` will now exit. Run `install.py` again like you did at the beginning of the example, only remove the `sudo` and add `--configure` to run `install.py` in "configuration only" mode. 
+ `install.py` will now exit. Run `install.py` again like you did at the beginning of the example, only remove the `sudo` and add `--configure` to run `install.py` in "configuration only" mode. 
 ```
 user@host:~/CSI-SIEM$ python3 scripts/install.py --configure
 ```
@@ -1734,7 +1725,8 @@ in /home/user/CSI-SIEM/scripts.
 
 At this point you should **reboot your computer** so that the new system settings can be applied. After rebooting, log back in and return to the directory to which Malcolm was installed (or to which the git working copy was cloned).
 
-Now we need to [set up authentication](#AuthSetup) and generate some unique self-signed SSL certificates. You can replace `analyst` in this example with whatever username you wish to use to log in to the Malcolm web interface.
+Now we need to [set up authentication](#AuthSetup) and generate some unique self-signed SSL certificates. You can replace `analyst` in this example with whatever username you wish to use to log in to the Malcolm web interface.  Go back to the CSI-SIEM folder and run the following commands:
+
 ```
 user@host:~/CSI-SIEM$ ./scripts/auth_setup
 Username: analyst
@@ -1833,10 +1825,6 @@ logstash_1  | [2019-06-11T15:45:42,599][INFO ][logstash.agent    ] Successfully 
 ```
 
 You can now open a web browser and navigate to one of the [Malcolm user interfaces](#UserInterfaceURLs).
-
-## <a name="UpgradePlan"></a>Upgrading Malcolm
-
-At this time there is not an "official" upgrade procedure for the CSI-SIEM using Malcolm.  Updates will be added for each major update of the CSI-Linux OS, and will be maintained from this site.  
 
 #### Monitoring Malcolm
 
