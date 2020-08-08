@@ -1568,13 +1568,16 @@ After Malcolm ingests your data (or, more specifically, after it has ingested a 
 
 ## <a name="InstallationExample"></a>Installation example using Ubuntu 18.04 LTS
 
+This installation should work without issues if you have a newer version than 1.23.2.  If you have an older version you have to install 1.23.2 or higher.  Follow the next steps to install docker-compose version 1.23.2:
+
 Here's a step-by-step example of getting [CSI-SIEM using Malcolm from GitHub](https://github.com/Information-Warfare-Center/CSI-SIEM/), configuring your system and your Malcolm instance, and running it on a system running Ubuntu Linux. Your mileage may vary depending on your individual system configuration, but this should be a good starting point.
 
-To install Download CSI-SIEM using Malcolm browse to the [CSI Linux Malcolm releases page on GitHub](https://csilinux.com) and download the `CSI-SIEM.tar.gz` file, then navigate to your downloads directory:
 ```
-user@host:~$ cd Downloads/
-user@host:~/Downloads$ ls
-tar -xzf  CSI-SIEM.tar.gz
+user@host:~$ sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+user@host:~/$ sudo apt-get remove docker-compose
+user@host:~/$ sudo chmod +x /usr/local/bin/docker-compose
+user@host:~/$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
 ```
 If you are using the tar file skip the next git clone step, and continue.
 If you are obtaining Malcolm using `git` instead, run the following command to clone Malcolm into a local working copy:
@@ -1588,12 +1591,14 @@ remote: Total 443 (delta 81), reused 441 (delta 79), pack-reused 0
 Receiving objects: 100% (443/443), 6.87 MiB | 18.86 MiB/s, done.
 Resolving deltas: 100% (81/81), done.
 
+user@host:~$   sudo chown -R csi:csi CSI-SIEM/
+
 user@host:~$ cd CSI-SIEM/
 ```
 ```diff
 -PLEASE READ THE NOTE BELOW ABOUT FILE PERMISSION!!
 ```
-***NOTE:  You must give ownership of the CSI-SIEM folder to your non-sudo account — If you're using CSI-Linux the csi user account must own the CSI-SIEM folder in order for the SIEM to install correctly.  You cannot install Malcolm using root, or the permissions will not work correctly.  The initial install script will use sudo in the next step, but the --configure step after that will only work using a non-privileged user that is allowed to write to the folder.  Use the chmod command to give your user permission to read, and write to the CSI-SIEM folder***
+***NOTE:  You must give ownership of the CSI-SIEM folder to your non-sudo account — If you're using CSI-Linux the csi user account must own the CSI-SIEM folder in order for the SIEM to install correctly.  You cannot install Malcolm using root, or the permissions will not work correctly.  The initial install script will use sudo in the next step, but the --configure step after that will only work using a non-privileged user that is allowed to write to the folder.  Use the chown command to give your user ownership of CSI-SIEM the folder.  If for some reason anything fails during the installation and says you don't have permission, perform the chown command again on the entire folder recursively.***
 
 Next, run the `install.py` script to configure your system. Replace `user` in this example with your local account username, and follow the prompts. Most questions have an acceptable default you can accept by pressing the `Enter` key. Depending on whether you are installing Malcolm from the release tarball or inside of a git working copy, the questions below will be slightly different, but for the most part are the same.
 ```
@@ -1655,16 +1660,19 @@ vm.dirty_ratio= appears to be missing from /etc/sysctl.conf, append it? (Y/n): y
 /etc/security/limits.d/limits.conf increases the allowed maximums for file handles and memlocked segments
 /etc/security/limits.d/limits.conf does not exist, create it? (Y/n): y
 ```
- `install.py` will now exit. Run `install.py` again like you did at the beginning of the example, only remove the `sudo` and add `--configure` to run `install.py` in "configuration only" mode. 
+ `install.py` will now exit. Run `install.py` again like you did at the beginning of the example, only remove the `sudo` and add `--configure` to run `install.py` in "configuration only" mode. Also, you may need to run the 'sudo chown -R user:group CSI-SIEM/' command again, because the install.py makes a file on the last configuration and that may stop you from running the next command when not using sudo.  You do not want to run the next step as a Root user or using sudo!  Run the next command without sudo, or modify the permission for the user you are using.  
 ```
 user@host:~/CSI-SIEM$ python3 scripts/install.py --configure
 ```
 
 Now that any necessary system configuration changes have been made, the local Malcolm instance will be configured:
 ```
-Setting 10g for Elasticsearch and 3g for Logstash. Is this OK? (Y/n): y
+Setting 6g for Elasticsearch and 2500m for Logstash. Is this OK? (Y/n): y
 
-Restart Malcolm upon system or Docker daemon restart? (y/N): y
+Restart Malcolm upon system or Docker daemon restart? (y/N): N
+
+If you selected Yes for Restart Malcolm you'll get the following, if not just skip it. Don't select Yes unless you 
+want the SIEM to run on every start up; it is not recommended.
 
 Select Malcolm restart behavior ('no', 'on-failure', 'always', 'unless-stopped'): unless-stopped
 
@@ -1674,7 +1682,7 @@ Periodically close old Elasticsearch indices? (Y/n): y
 
 Indices older than 5 years will be periodically closed. Is this OK? (Y/n): n
 
-Enter index close threshold (e.g., 90 days, 2 years, etc.): 1 years
+Enter index close threshold (e.g., 90 days, 2 years, etc.): 90 days
 
 Indices older than 1 years will be periodically closed. Is this OK? (Y/n): y
 
@@ -1682,7 +1690,7 @@ Periodically delete old Elasticsearch indices? (Y/n): y
 
 Indices older than 10 years will be periodically deleted. Is this OK? (Y/n): n
 
-Enter index delete threshold (e.g., 90 days, 2 years, etc.): 5 years
+Enter index delete threshold (e.g., 90 days, 2 years, etc.): 90 days 
 
 Indices older than 5 years will be periodically deleted. Is this OK? (Y/n): y
 
@@ -1716,7 +1724,7 @@ Download updated ClamAV virus signatures periodically? (Y/n): y
 
 Should Malcolm capture network traffic to PCAP files? (y/N): y
 
-Specify capture interface(s) (comma-separated): eth0
+Specify capture interface(s) (comma-separated): enp0s3
 
 Capture packets using netsniff-ng? (Y/n): y
 
